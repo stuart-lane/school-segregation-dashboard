@@ -1,0 +1,16 @@
+
+.leaflet-left{
+    display: none;
+}
+
+/* .leaflet-control-attribution{
+    z-index: -1;
+    margin-top: 20px;
+    position:relative;
+    color: black;
+    background-color: black;
+} */
+
+.leaflet-control{
+    font-size: 10px;
+}

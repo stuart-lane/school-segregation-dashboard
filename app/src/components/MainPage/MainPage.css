@@ -1,0 +1,23 @@
+.main-container {
+    display: flex;
+    height: 100vh; /* 100% of the viewport height */
+    width: 100vw; /* 100% of the viewport width */
+  }
+  
+  .custom-sidebar {
+    z-index: 2;
+    width: 40%;
+    background-color: white; /* Optional: Add a background color */
+  }
+  
+  .leaflet-container {
+    z-index: 1;
+    position: absolute;
+    width: 100vw;
+    background-color: #ffffff; /* Optional: Add a background color */
+
+    height: 100vh;
+    padding: 0;
+  }
+
+  
