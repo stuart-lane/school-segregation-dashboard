@@ -1,0 +1,167 @@
+library(sf)
+library(dplyr)
+library(tidyr)
+
+
+prepare_spatial_data <- function(shape_file_directory){
+  
+  spatial_df <- sf::read_sf(shape_file_directory)
+  
+  # Simplify the shapefile to reduce memory
+  # spatial_df <- rmapshaper::ms_simplify(spatial_df, keep = 0.001,keep_shapes = FALSE)
+  # Transform into lat-long projection
+  spatial_df <- sf::st_transform(spatial_df, 4326)
+  
+  return(spatial_df)
+  
+}
+
+
+get_plot_information <- function(figure_directory){
+  
+  years_folders <- list.files(figure_directory)
+  plot_types <- lapply(years_folders, function(year_folder){
+    list.files(paste0(figure_directory, year_folder,collapse = '/'))
+  }) |> unlist() |> unique()
+  
+  all_plots <- list()
+  
+  i <- 1
+  for (year_folder in years_folders){
+    for (plot_type in plot_types){
+      
+      dir_to_check <- paste0(figure_directory, '/',year_folder,'/' ,plot_type,'/')
+      dir_to_check <- gsub('//', '/', dir_to_check)
+      
+      dir_plots <- list.files(dir_to_check)
+      
+      
+      file_suffix <- paste0('_', plot_type, '_', year_folder,'.png')
+      
+      for (plot in dir_plots){
+        
+        area <- gsub(file_suffix, '', plot)
+        if(area==''){
+          next
+        }
+        
+        plot_path <- paste0(
+          dir_to_check,
+          plot
+        )
+        
+        all_plots[[i]] <- list(
+          year_store = year_folder,
+          plot_type_store = plot_type,
+          areas_store = area,
+          plot_path = plot_path
+        )
+        
+        i <- i + 1
+      }
+      
+    }
+  }
+  
+  
+  all_plots <- dplyr::bind_rows(all_plots)
+  
+  all_plots$year <- substr(all_plots$year_store, 1, 4)
+  
+  
+  to_title <- function(x) {
+    x <- gsub("(^|_)([[:alpha:]])", "\\1\\U\\2", x, perl = TRUE)
+    x <- gsub("(^|-)([[:alpha:]])", "\\1\\U\\2", x, perl = TRUE)
+    
+    x <- gsub("_", " ", x)
+    
+    x <- gsub(" Of ", " of ", x)
+    x <- gsub(" On ", " on ", x)
+    x <- gsub(" And ", " and ", x)
+    x <- gsub(" With ", " with ", x)
+    x <- gsub(" In ", " in ", x)
+    x <- gsub("-In-", "-in-", x)
+    x <- gsub(" County Of", " County of", x)
+    x <- gsub(" City Of", " City of", x)
+    
+    return(x)
+    
+  }
+  
+  
+  all_plots$area <- to_title(all_plots$areas_store)
+  
+  all_plots$plot_path <- gsub('./', '/', all_plots$plot_path,fixed=T)
+  
+  return(all_plots)
+  
+}
+
+
+prepare_shapefile <- function(shape_file_directory,
+                              figure_directory,
+                              output_directory){
+ 
+  spatial_data <- prepare_spatial_data(shape_file_directory)
+  spatial_data <-  spatial_data[substr(spatial_data$LAD24CD, 1, 1) == 'E',]
+  plot_information <- get_plot_information(figure_directory)
+  
+  spatial_data$link <- tolower(spatial_data$LAD24NM)
+  spatial_data$link <- gsub(' ','_', spatial_data$link)
+  spatial_data$link <- gsub('-','_', spatial_data$link)
+  spatial_data$link <- gsub(',','_', spatial_data$link)
+  
+  
+  plot_information$link <- tolower(plot_information$areas_store)
+  plot_information$link <- gsub(' ','_', plot_information$link)
+  plot_information$link <- gsub('-','_', plot_information$link)
+  plot_information$link <- gsub(',','_', plot_information$link)
+  
+  
+  missing_areas <- length(unique(plot_information$link[plot_information$link %in% spatial_data$link==F]))
+  if(length(missing_areas)>0){
+    warning(paste0('Missing areas: ', missing_areas))
+  }
+  
+  area_list <- list()
+  for (i in 1:nrow(plot_information)){
+    area_list[[i]] <- list(
+      'name'=plot_information$area[i],
+      'link'=plot_information$link[i])
+  }
+  
+  
+  
+  area_list <- unique(area_list)
+  
+  filters <- list(
+    'year' = sort(unique(plot_information$year)),
+    'plot_type' = sort(unique(plot_information$plot_type_store)),
+    'area' = area_list)
+  
+  dir.create(output_directory, showWarnings = F)
+  plot_information <- jsonlite::toJSON(plot_information, pretty = T,auto_unbox = T)
+  readr::write_file(plot_information, paste0(output_directory, 'plot_information.json'))
+  
+  # jsonlite::write_json(plot_information, pastIe0(output_directory, 'plot_information.json'))
+  
+  filters <- jsonlite::toJSON(filters, pretty = T,auto_unbox = T)
+  readr::write_file(filters, paste0(output_directory, 'filters.json'))
+  
+  
+  
+  sf::st_write(spatial_data, paste0(output_directory, 'spatial_data.geojson'), append = F)
+  
+  
+  
+  
+}
+
+
+shape_file_directory <- './Local_Authority_Districts_May_2024_Boundaries_UK_BUC_-7430853278415417895//'
+figure_directory <- './2_figures/'
+output_directory <- 'outputs/'
+
+prepare_shapefile(shape_file_directory,
+                  figure_directory,
+                  output_directory)
