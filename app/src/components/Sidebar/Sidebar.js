@@ -51,7 +51,7 @@ function constructUrl({local_authority, year, plotType}){
 
     // return(undefined)
     if (plot_info_to_use){
-    const base_url = "https://raw.githubusercontent.com/l-gorman/temp-image-store/242e0fbaf7a25b8bed1351bfaae063357478e511";
+    const base_url = "https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep";
     const complete_url = base_url + plot_info_to_use["plot_path"];
     
     return(complete_url);
