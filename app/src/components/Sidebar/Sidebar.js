@@ -90,8 +90,8 @@ export default function Sidebar({ local_authority }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response_plot_info = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/dev/segDataPrep/outputs/plot_information.json')
-        const response_filter = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/dev/segDataPrep/outputs/filters.json')
+        const response_plot_info = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/plot_information.json')
+        const response_filter = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/filters.json')
 
         const plot_info_data = await response_plot_info.json()
         const response_filter_data = await response_filter.json()
