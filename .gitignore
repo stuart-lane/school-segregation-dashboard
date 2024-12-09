@@ -28,7 +28,6 @@
 *.DS_Store
 
 segDataPrep/misc/
-segDataPrep/outputs/
 
 
 renv/

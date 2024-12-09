@@ -6,7 +6,7 @@ import { GeoJSON, MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 import "./Choropleth.css";
 
 // import localAuthorities from "../../../../data/hh_size_data.json";
-import areas from "../../data/spatial_data.json";
+// import areas from "../../data/spatial_data.json";
 
 import { useEffect, useState } from "react";
 // import { noConflict } from "leaflet";
@@ -17,6 +17,27 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
     name: local_authority["name"],
     link: local_authority["link"],
   });
+
+  
+
+  const [areas, setAreaData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/app/src/data/spatial_data.json')
+        const data = await response.json()
+        console.log(data)
+        setAreaData(data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching JSON:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const [isHighlight, setIsHighlight] = useState({
     name: null,
@@ -122,7 +143,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
     const layer = e.target;
 
     setIsHighlight({
-      name: feature["properties"]["LAD23NM"],
+      name: feature["properties"]["LAD24NM"],
       link: feature["properties"]["link"],
     });
 
@@ -149,7 +170,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
     const layer = e.target;
 
     setIsSelect({
-      name: feature["properties"]["LAD23NM"],
+      name: feature["properties"]["LAD24NM"],
       link: feature["properties"]["link"],
     });
 
@@ -158,9 +179,16 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
     layer.bringToFront();
   };
 
-  return (
+  
+    if (loading) {
+
+      return <p>Loading...</p>
+    }
+    if (areas) {
+      return(
     <MapContainer center={position} zoom={7}>
       <TileLayer url={url} attribution={attribution} />
+    
       <GeoJSON
         data={areas}
         style={styleClosure(isSelect, isHighlight)}
@@ -169,4 +197,5 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
       <ZoomControl position="topright" />
     </MapContainer>
   );
+}
 }
