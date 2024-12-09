@@ -7,10 +7,13 @@ import "./Sidebar.css";
 
 // import localAuthorities from "../../../../data/hh_size_data.json";
 
-import filters from "../../data/filters.json";
-import plot_info from "../../data/plot_information.json";
+// import filters from "../../data/filters.json";
+// import plot_info from "../../data/plot_information.json";
 
 function GetImage({ url, local_authority}) {
+  
+
+
 
 
   if (local_authority.name === "Select local authority by clicking on the map"){
@@ -35,7 +38,7 @@ function GetImage({ url, local_authority}) {
 }
 
 
-function constructUrl({local_authority, year, plotType}){
+function constructUrl({plot_info,local_authority, year, plotType}){
 
     
     // console.log(plot_info);
@@ -79,22 +82,36 @@ export default function Sidebar({ local_authority }) {
   const [year, setYear] = useState(2011);
   const [plotType, setPlotType] = useState('primary_fsm');
 
-//   useEffect(() => {
-//     const plot_info_to_use = plot_info.find(
-//       (element) => element["link"] === local_authority["link"]
-//     );
 
-//     if(plot_info_to_use){
-//     const plot_path = "https://raw.githubusercontent.com/l-gorman/temp-image-store/242e0fbaf7a25b8bed1351bfaae063357478e511/"+ plot_info_to_use["plot_path"];
-//     setPlotURL(plot_path);
-//     console.log(plot_path);
-//     }
-//   }, [local_authority]);
+  const [filters, setFilters] = useState(null)
+  const [plot_info, setPlotInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response_plot_info = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/dev/segDataPrep/outputs/plot_information.json')
+        const response_filter = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/dev/segDataPrep/outputs/filters.json')
+
+        const plot_info_data = await response_plot_info.json()
+        const response_filter_data = await response_filter.json()
+
+        setFilters(response_filter_data)
+        setPlotInfo(plot_info_data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching JSON:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
 
   useEffect(() => {
     
-    const plot_info_to_use = constructUrl({local_authority, year, plotType});
+    if (plot_info){
+    const plot_info_to_use = constructUrl({plot_info,local_authority, year, plotType});
 
     if(plot_info_to_use){
     // const plot_path = "https://raw.githubusercontent.com/l-gorman/temp-image-store/242e0fbaf7a25b8bed1351bfaae063357478e511/"+ plot_info_to_use["plot_path"];
@@ -103,8 +120,19 @@ export default function Sidebar({ local_authority }) {
     }else{
       setPlotURL(null);
     }
-  }, [local_authority, year, plotType]);
+  }
+  }, [plot_info, local_authority, year, plotType]);
 
+  if (loading){
+    return(
+      <div className="sidebar-content">
+        <h1 className="sidebar-header">Spatial Analysis Dashboard Mockup</h1>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  if (!loading){
   return (
     <div className="sidebar-content">
       <h1 className="sidebar-header">Spatial Analysis Dashboard Mockup</h1>
@@ -170,3 +198,4 @@ export default function Sidebar({ local_authority }) {
   );
 }
 
+}

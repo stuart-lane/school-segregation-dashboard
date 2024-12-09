@@ -26,7 +26,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/app/src/data/spatial_data.json')
+        const response = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/dev/segDataPrep/outputs/spatial_data.geojson')
         const data = await response.json()
         console.log(data)
         setAreaData(data)

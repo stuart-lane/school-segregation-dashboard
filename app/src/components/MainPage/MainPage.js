@@ -8,6 +8,9 @@ import './MainPage.css'
 
 export default function MainPage() {
 
+
+
+
 const [local_authority, setLocalAuthority] = useState({
   name:'Select local authority by clicking on the map',
   link: false
@@ -19,12 +22,9 @@ const changeLocalAuthority = useCallback((value) => {
   setLocalAuthority(value)
 },[])
 
-// const changeLocalAuthority = (value) => {
-//   setLocalAuthority(value)
-// }
 
-useEffect(() => {
-}, [local_authority])
+
+
 
 
   return (
