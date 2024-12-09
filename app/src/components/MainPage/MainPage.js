@@ -1,6 +1,6 @@
 // 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Choropleth from '../Choropleth/'
 import Sidebar from '../Sidebar/'
 
