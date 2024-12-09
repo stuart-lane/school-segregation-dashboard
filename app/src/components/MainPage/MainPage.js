@@ -23,10 +23,6 @@ const changeLocalAuthority = useCallback((value) => {
 },[])
 
 
-
-
-
-
   return (
     <div className='main-container'>
         {/* {local_authority} */}
