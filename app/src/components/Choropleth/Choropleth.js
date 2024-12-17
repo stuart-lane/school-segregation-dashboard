@@ -130,23 +130,23 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
   };
 
   //   Function to get color based on density or any other property
-  const getColor = (density) => {
-    return density > 30000
-      ? "#800026"
-      : density > 20000
-      ? "#BD0026"
-      : density > 10000
-      ? "#E31A1C"
-      : density > 5000
-      ? "#FC4E2A"
-      : density > 2500
-      ? "#FD8D3C"
-      : density > 1000
-      ? "#FEB24C"
-      : density > 10
-      ? "#FED976"
-      : "#FFEDA0";
-  };
+  // const getColor = (density) => {
+  //   return density > 30000
+  //     ? "#800026"
+  //     : density > 20000
+  //     ? "#BD0026"
+  //     : density > 10000
+  //     ? "#E31A1C"
+  //     : density > 5000
+  //     ? "#FC4E2A"
+  //     : density > 2500
+  //     ? "#FD8D3C"
+  //     : density > 1000
+  //     ? "#FEB24C"
+  //     : density > 10
+  //     ? "#FED976"
+  //     : "#FFEDA0";
+  // };
 
   const onEachFeatureClosure = (setIsSelect, setIsHighlight) => {
     return (feature, layer) => {
