@@ -21,6 +21,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
   
 
   const [areas, setAreaData] = useState(null)
+  const [choro_info, setChoroInfo] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,8 +29,11 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
       try {
         const response = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/spatial_data.geojson')
         const data = await response.json()
-        console.log(data)
         setAreaData(data)
+
+        const response_choro = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/seg_indices.json')
+        const data_choro = await response_choro.json()
+        setChoroInfo(data_choro)
         setLoading(false)
       } catch (error) {
         console.error('Error fetching JSON:', error)
@@ -99,8 +103,23 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
         return styleHighlight;
       }
 
+      // console.log(feature.properties)
+
+      const year = "2019_20"
+      const group = "Race"
+      const school = "Secondary Schools"
+      
+      // Subset choro_info to get the relevant data
+      const choro_info_subset = choro_info.filter((element) => element["link"] === feature["properties"]["link"] & element["year"] === year & element["group"] === group & element["school"] === school)
+      console.log(choro_info_subset)
+      if (choro_info_subset.length > 0) {
+        console.warn("Multiple matches where there should be one")
+        }
+        
+
+
       return {
-        fillColor: getColor(feature.properties["4 people in household"]), // Adjust based on your GeoJSON properties
+        fillColor: choro_info[0]["colour"], // Adjust based on your GeoJSON properties
         weight: 1,
         opacity: 1,
         color: "darkgrey",
