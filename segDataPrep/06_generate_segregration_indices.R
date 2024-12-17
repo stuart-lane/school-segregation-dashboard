@@ -9,6 +9,7 @@ library(dplyr)
 library(tidyr)
 library(haven)
 library(tidyverse)
+library(data.table)
 
 # setwd("C:/Users/sl14120/OneDrive - University of Bristol/Seg")
 
@@ -336,7 +337,7 @@ for (school_type in school_types) {
     print(pairwise_theil_index_table)
     
     # Save the pairwise Theil entropy index results to a CSV file
-    save_file <- paste0(single_index_folder, "theil_entropy_index", tolower(group_1), "_", 
+    save_file <- paste0(single_index_folder, "theil_entropy_index","_",  tolower(group_1), "_", 
                         tolower(group_2), "_", school_type, ".csv")
     write.csv(pairwise_theil_index_table, save_file, row.names = FALSE)
   }

@@ -1,7 +1,7 @@
 library(sf)
 library(dplyr)
 library(tidyr)
-
+library(viridis)
 
 prepare_spatial_data <- function(shape_file_directory){
   
@@ -97,14 +97,120 @@ get_plot_information <- function(figure_directory){
   
 }
 
+link_seg_indices <- function(spatial_data, seg_indice_directory, plot_information){
+
+  seg_indice_directory <- './3_segregation_indices/'
+  indice_data <- readr::read_csv(paste0(seg_indice_directory, 'full_file_cols_segregation.csv'))
+  
+  indice_data$link <- tolower(indice_data$district)
+  indice_data$link <- gsub(' ','_', indice_data$link)
+  indice_data$link <- gsub('-','_', indice_data$link)
+  indice_data$link <- gsub(',','_', indice_data$link)
+  
+  grouping <- list(
+    "Free School Meals" = "fsm",
+    "Race" = 'race'
+    # "Asian/Black" = "ab",
+    # "Asian/White" = "aw",
+    # "Black/White" = "bw"
+  )
+  
+  schools <- list(
+    "Primary Schools" = "p",
+    "Secondary Schools" = "s" 
+  )
+  
+  filters <- list(
+    # index = type_of_index,
+    group = grouping,
+    school = schools
+  )
+  
+  seg_info <- list()
+  
+  combos <- expand.grid(unique(indice_data$link), unique(indice_data$year), unique(names(filters$group)), unique(names(filters$school)))
+  combos <- combos[complete.cases(combos),]
+  colnames(combos) <- c('link', 'year', 'group', 'school')
+  
+  
+  
+  seg_index_info <- list()
+  
+  colour_scale <- viridis(5, alpha = 1, begin = 0, end = 1, direction = 1, option = "D")
+  
+  for (row in 1:nrow(combos)){
+    
+    # color <- ifelse()
+    
+    # index <- filters[['index']][[combos$index[row]]]
+    group <- filters[['group']][[combos$group[row]]]
+    
+    if (group == 'fsm'){
+      index <- 'd'
+    } else {
+      index <- 't'
+    }
+    
+    school <- filters[['school']][[combos$school[row]]]
+    
+    
+    column <- paste0(index, "_", group, '_', school)
+    
+    # which(indice_data$link == combos$link[row])
+    # which(indice_data$year == combos$year[row])
+    value <- indice_data[indice_data$link == combos$link[row] & indice_data$year == combos$year[row] & !is.na(indice_data$district), column]
+    if (nrow(value)==1){
+      value <- as.numeric(value)
+    }else if(nrow(value) > 1 & sum(is.na(value)) ==1){
+      value <- value[!is.na(value)]
+      value <- as.numeric(value)
+    } else if (nrow(value)==0){
+      value <- NA
+      warning(paste0("No value for the index: ", row))
+      
+    }else {
+      
+      warning(paste0("Multiple values for the same index: ", row))
+      value <- NA
+      
+    }
+
+    colour <- ifelse(value < 0.2, colour_scale[1],
+                    ifelse(value < 0.4, colour_scale[2],
+                           ifelse(value < 0.6, colour_scale[3],
+                                  ifelse(value < 0.8, colour_scale[4], colour_scale[5])))
+    ) |> as.character()
+    
+    seg_index_info[[row]] <- list(
+      'link' = combos$link[row],
+      'year' = combos$year[row],
+      'index' = combos$index[row],
+      'group' = combos$group[row],
+      'school' = combos$school[row],
+      'colour' = colour,
+      'value' = value
+    )
+  }
+  
+  # temp <- seg_index_info |> dplyr::bind_rows()
+  json_seg_info <- jsonlite::toJSON(seg_index_info, pretty = T,auto_unbox = T)
+  return(json_seg_info)
+  
+}
+
 
 prepare_shapefile <- function(shape_file_directory,
                               figure_directory,
                               output_directory){
+  
  
   spatial_data <- prepare_spatial_data(shape_file_directory)
   spatial_data <-  spatial_data[substr(spatial_data$LAD24CD, 1, 1) == 'E',]
   plot_information <- get_plot_information(figure_directory)
+  
+  
+  
+
   
   spatial_data$link <- tolower(spatial_data$LAD24NM)
   spatial_data$link <- gsub(' ','_', spatial_data$link)
@@ -139,7 +245,13 @@ prepare_shapefile <- function(shape_file_directory,
     'plot_type' = sort(unique(plot_information$plot_type_store)),
     'area' = area_list)
   
+  
+  seg_indices <- link_seg_indices(spatial_data, seg_indice_directory, plot_information)
+  
   dir.create(output_directory, showWarnings = F)
+  
+  readr::write_file(seg_indices, paste0(output_directory, 'seg_indices.json'))
+                    
   plot_information <- jsonlite::toJSON(plot_information, pretty = T,auto_unbox = T)
   readr::write_file(plot_information, paste0(output_directory, 'plot_information.json'))
   
@@ -160,6 +272,7 @@ prepare_shapefile <- function(shape_file_directory,
 
 shape_file_directory <- './Local_Authority_Districts_May_2024_Boundaries_UK_BUC_-7430853278415417895//'
 figure_directory <- './2_figures/'
+seg_indice_directory <- './3_segregation_indices/'
 output_directory <- 'outputs/'
 
 prepare_shapefile(shape_file_directory,
