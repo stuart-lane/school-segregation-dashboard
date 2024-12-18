@@ -30,6 +30,10 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
   // const [group, setGroup] = useState(null)
   // const [school, setSchool] = useState(null)
 
+  // useEffect(() => {
+
+  // },[])
+
 
 
   useEffect(() => {
@@ -111,7 +115,9 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
   };
 
   // A closure function for updating styles
-  const styleClosure = (isSelect, isHighlight) => {
+  const styleClosure = (isSelect, isHighlight, school_selection,
+    group_selection,
+    year_selection) => {
     return (feature) => {
       if (feature["properties"]["link"] === isSelect["link"]) {
         return styleSelected;
@@ -126,11 +132,9 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
       // Subset choro_info to get the relevant data
       // const choro_info_subset = choro_info.filter((element) => element["link"] === feature["properties"]["link"] & element["year"] === year & element["group"] === group & element["school"] === school)
       
-      const year = "2019_20"
-      const group = "Free School Meals"
-      const school = "Secondary Schools"
+   
 
-      const key = `${feature["properties"]["link"]}_${year}_${group}_${school}`;
+      const key = `${feature["properties"]["link"]}_${year_selection}_${group_selection}_${school_selection}`;
       // const choro_info_subset = choro_info[key];
 
       let fill_colour = "grey"
@@ -233,7 +237,9 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
     
       <GeoJSON
         data={areas}
-        style={styleClosure(isSelect, isHighlight)}
+        style={styleClosure(isSelect, isHighlight, school_selection,
+          group_selection,
+          year_selection)}
         onEachFeature={onEachFeatureClosure(setIsSelect, setIsHighlight)}
       />
       <ZoomControl position="topright" />
