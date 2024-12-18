@@ -2,6 +2,8 @@ library(sf)
 library(dplyr)
 library(tidyr)
 library(viridis)
+library(cowplot)
+library(ggplot2)
 
 prepare_spatial_data <- function(shape_file_directory){
   
@@ -97,11 +99,11 @@ get_plot_information <- function(figure_directory){
   
 }
 
-link_seg_indices <- function(spatial_data, seg_indice_directory, plot_information){
+link_seg_indices <- function(spatial_data, seg_indice_directory, plot_information, legends_output_directory){
 
-  seg_indice_directory <- './3_segregation_indices/'
-  indice_data <- readr::read_csv(paste0(seg_indice_directory, 'full_file_cols_segregation.csv'))
-  
+  # seg_indice_directory <- './3_segregation_indices/'
+  # indice_data <- readr::read_csv(paste0(seg_indice_directory, 'full_file_cols_segregation.csv'))
+  # 
   indice_data$link <- tolower(indice_data$district)
   indice_data$link <- gsub(' ','_', indice_data$link)
   indice_data$link <- gsub('-','_', indice_data$link)
@@ -136,7 +138,6 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
   
   seg_index_info <- list()
   
-  colour_scale <- viridis(5, alpha = 1, begin = 0, end = 1, direction = 1, option = "D")
   
   for (row in 1:nrow(combos)){
     
@@ -174,12 +175,8 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
       value <- NA
       
     }
-
-    colour <- ifelse(value < 0.2, colour_scale[1],
-                    ifelse(value < 0.4, colour_scale[2],
-                           ifelse(value < 0.6, colour_scale[3],
-                                  ifelse(value < 0.8, colour_scale[4], colour_scale[5])))
-    ) |> as.character()
+    
+    
     
     seg_index_info[[row]] <- list(
       'link' = combos$link[row],
@@ -187,17 +184,99 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
       'index' = combos$index[row],
       'group' = combos$group[row],
       'school' = combos$school[row],
-      'colour' = colour,
       'value' = value
     )
   }
   
-  # temp <- seg_index_info |> dplyr::bind_rows()
-  json_seg_info <- jsonlite::toJSON(seg_index_info, pretty = T,auto_unbox = T)
-  return(json_seg_info)
+  seg_index_info <- seg_index_info |> dplyr::bind_rows()
+  seg_index_info <- create_color_bins(seg_index_info, legends_output_directory)
+  
+  return(seg_index_info)
   
 }
 
+
+create_color_bins <- function(seg_index_info, legends_output_directory){
+  seg_index_info_summary <- seg_index_info |> 
+    dplyr::group_by(year,
+                    group,
+                    school) |> 
+    summarise(min = min(value, na.rm = T),
+              max = max(value, na.rm = T)) 
+  
+  seg_index_info$colour <- NA
+  seg_index_info$break_label <- NA
+  for (row in 1:nrow(seg_index_info_summary)){
+    
+    year <- seg_index_info_df$year[row]
+    group <- seg_index_info_df$group[row]
+    school <- seg_index_info_df$school[row]
+    
+
+    min_value <- seg_index_info_df$min[seg_index_info_df$year == year & seg_index_info_df$group == group & seg_index_info_df$school == school]
+    max_value <- seg_index_info_df$max[seg_index_info_df$year == year & seg_index_info_df$group == group & seg_index_info_df$school == school]
+    
+    
+    subset <- seg_index_info$year == year & seg_index_info$group == group & seg_index_info$school == school
+    breaks <- seq(min_value, max_value, length.out = 6)
+    break_labels <- c()
+    for (i in 1:(length(breaks)-1)){
+      break_labels[i] <- paste0(signif(breaks[i],2), ' - ', signif(breaks[i+1],2))
+    }
+    break_labels <- c(break_labels, 'NA')
+    
+    if (length(unique(breaks))==6){
+    colors <- viridis::viridis(5)
+    seg_index_info$colour[subset] <- cut(
+      seg_index_info$value[subset],
+      breaks = breaks,
+      labels = colors
+    )}else{
+      colors <- viridis::viridis(1)
+      seg_index_info$colour[subset][!is.na(seg_index_info$value[subset])] <- "1"
+      break_labels <- c(unique(signif(breaks,2)), "NA")
+    }
+    
+    for (i in 1:length(seg_index_info$colour[subset])){
+      
+      value <- as.numeric(seg_index_info$colour[subset][i])
+      if (!is.na(value)){
+      seg_index_info$colour[subset][i] <- colors[value]
+      seg_index_info$break_label[subset][i] <- break_labels[value]
+      }else{
+        seg_index_info$colour[subset][i] <- "#808080"
+        seg_index_info$break_label[subset][i] <- 'NA'
+      }
+    }
+    
+    temp <- seg_index_info[subset,c("value", 'colour', 'break_label')]
+    temp$break_label <- factor(temp$break_label, levels = break_labels, ordered = T)
+    
+    
+    temp_plot <- ggplot(temp, aes(x = break_label, fill=break_label)) +
+      geom_bar() +
+      scale_fill_manual(values = c(colors,"#808080"), labels = break_labels) +
+      labs(fill='Thresholds')
+    
+    legend <- cowplot::get_legend(temp_plot)
+    
+    output_path <- paste0(legends_output_directory, year, '_', group, '_', school, '.svg')
+    output_path <- gsub("  ", " ", output_path)
+    output_path <- gsub(" ", "_", output_path)
+    ggsave(output_path, 
+           legend,
+           width = 300,
+           height = 500,
+           unit='px')
+    
+  }
+  
+  
+  return(seg_index_info)
+  
+
+  
+}
 
 prepare_shapefile <- function(shape_file_directory,
                               figure_directory,
@@ -245,11 +324,17 @@ prepare_shapefile <- function(shape_file_directory,
     'plot_type' = sort(unique(plot_information$plot_type_store)),
     'area' = area_list)
   
-  
-  seg_indices <- link_seg_indices(spatial_data, seg_indice_directory, plot_information)
-  
   dir.create(output_directory, showWarnings = F)
+  dir.create(paste0(output_directory, 'legends/'), showWarnings = F)
   
+  seg_indices <- link_seg_indices(spatial_data, 
+                                  seg_indice_directory, 
+                                  plot_information, 
+                                  legends_output_directory = paste0(output_directory, "legends/"))
+  
+  
+
+  seg_indices <- jsonlite::toJSON(seg_indices, pretty = T,auto_unbox = T)
   readr::write_file(seg_indices, paste0(output_directory, 'seg_indices.json'))
                     
   plot_information <- jsonlite::toJSON(plot_information, pretty = T,auto_unbox = T)
