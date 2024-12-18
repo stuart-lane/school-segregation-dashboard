@@ -33,7 +33,17 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
 
         const response_choro = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/seg_indices.json')
         const data_choro = await response_choro.json()
-        setChoroInfo(data_choro)
+        const choro_info_dict = {}
+        data_choro.forEach(element => {
+          const key = `${element["link"]}_${element["year"]}_${element["group"]}_${element["school"]}`
+          choro_info_dict[key] = {
+            'colour': element['colour'],
+            'value': element['value']
+          }
+        })
+
+        console.log(choro_info_dict)
+        setChoroInfo(choro_info_dict)
         setLoading(false)
       } catch (error) {
         console.error('Error fetching JSON:', error)
@@ -106,20 +116,23 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
       // console.log(feature.properties)
 
       const year = "2019_20"
-      const group = "Race"
+      const group = "Free School Meals"
       const school = "Secondary Schools"
       
       // Subset choro_info to get the relevant data
-      const choro_info_subset = choro_info.filter((element) => element["link"] === feature["properties"]["link"] & element["year"] === year & element["group"] === group & element["school"] === school)
-      console.log(choro_info_subset)
-      if (choro_info_subset.length > 0) {
-        console.warn("Multiple matches where there should be one")
-        }
-        
+      // const choro_info_subset = choro_info.filter((element) => element["link"] === feature["properties"]["link"] & element["year"] === year & element["group"] === group & element["school"] === school)
+    
+      const key = `${feature["properties"]["link"]}_${year}_${group}_${school}`;
+      // const choro_info_subset = choro_info[key];
+
+      let fill_colour = "grey"
+      // if (choro_info_subset.length === 1) {
+      //   fill_colour = choro_info_subset[0]["colour"]
+      // }
 
 
       return {
-        fillColor: choro_info[0]["colour"], // Adjust based on your GeoJSON properties
+        fillColor: fill_colour, // Adjust based on your GeoJSON properties
         weight: 1,
         opacity: 1,
         color: "darkgrey",
