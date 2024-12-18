@@ -110,16 +110,16 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
   indice_data$link <- gsub(',','_', indice_data$link)
   
   grouping <- list(
-    "Free School Meals" = "fsm",
-    "Race" = 'race'
+    "fsm" = "fsm",
+    "race" = 'race'
     # "Asian/Black" = "ab",
     # "Asian/White" = "aw",
     # "Black/White" = "bw"
   )
   
   schools <- list(
-    "Primary Schools" = "p",
-    "Secondary Schools" = "s" 
+    "primary" = "p",
+    "secondary" = "s" 
   )
   
   filters <- list(
@@ -133,7 +133,7 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
   combos <- expand.grid(unique(indice_data$link), unique(indice_data$year), unique(names(filters$group)), unique(names(filters$school)))
   combos <- combos[complete.cases(combos),]
   colnames(combos) <- c('link', 'year', 'group', 'school')
-  
+  combos$year <- as.character(combos$year)
   
   
   seg_index_info <- list()
@@ -159,7 +159,7 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
     
     # which(indice_data$link == combos$link[row])
     # which(indice_data$year == combos$year[row])
-    value <- indice_data[indice_data$link == combos$link[row] & indice_data$year == combos$year[row] & !is.na(indice_data$district), column]
+    value <- indice_data[indice_data$link == as.character(combos$link[row]) & indice_data$year == combos$year[row] & !is.na(indice_data$district), column]
     if (nrow(value)==1){
       value <- as.numeric(value)
     }else if(nrow(value) > 1 & sum(is.na(value)) ==1){
@@ -176,7 +176,7 @@ link_seg_indices <- function(spatial_data, seg_indice_directory, plot_informatio
       
     }
     
-    
+    combos$year[row] <- substr(as.character(combos$year[row]), 1, 4)
     
     seg_index_info[[row]] <- list(
       'link' = combos$link[row],
@@ -208,13 +208,13 @@ create_color_bins <- function(seg_index_info, legends_output_directory){
   seg_index_info$break_label <- NA
   for (row in 1:nrow(seg_index_info_summary)){
     
-    year <- seg_index_info_df$year[row]
-    group <- seg_index_info_df$group[row]
-    school <- seg_index_info_df$school[row]
+    year <- seg_index_info_summary$year[row]
+    group <- seg_index_info_summary$group[row]
+    school <- seg_index_info_summary$school[row]
     
 
-    min_value <- seg_index_info_df$min[seg_index_info_df$year == year & seg_index_info_df$group == group & seg_index_info_df$school == school]
-    max_value <- seg_index_info_df$max[seg_index_info_df$year == year & seg_index_info_df$group == group & seg_index_info_df$school == school]
+    min_value <- seg_index_info_summary$min[seg_index_info_summary$year == year & seg_index_info_summary$group == group & seg_index_info_summary$school == school]
+    max_value <- seg_index_info_summary$max[seg_index_info_summary$year == year & seg_index_info_summary$group == group & seg_index_info_summary$school == school]
     
     
     subset <- seg_index_info$year == year & seg_index_info$group == group & seg_index_info$school == school

@@ -11,7 +11,9 @@ import "./Choropleth.css";
 import { useEffect, useState } from "react";
 // import { noConflict } from "leaflet";
 
-export default function Choropleth({ local_authority, changeLocalAuthority }) {
+export default function Choropleth({ local_authority, changeLocalAuthority,school_selection,
+  group_selection,
+  year_selection}) {
   // Initial state for selector
   const [isSelect, setIsSelect] = useState({
     name: local_authority["name"],
@@ -23,6 +25,12 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
   const [areas, setAreaData] = useState(null)
   const [choro_info, setChoroInfo] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  // const [year, setYear] = useState(2019)
+  // const [group, setGroup] = useState(null)
+  // const [school, setSchool] = useState(null)
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,14 +122,14 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
       }
 
       // console.log(feature.properties)
-
-      const year = "2019_20"
-      const group = "Free School Meals"
-      const school = "Secondary Schools"
       
       // Subset choro_info to get the relevant data
       // const choro_info_subset = choro_info.filter((element) => element["link"] === feature["properties"]["link"] & element["year"] === year & element["group"] === group & element["school"] === school)
-    
+      
+      const year = "2019_20"
+      const group = "Free School Meals"
+      const school = "Secondary Schools"
+
       const key = `${feature["properties"]["link"]}_${year}_${group}_${school}`;
       // const choro_info_subset = choro_info[key];
 
