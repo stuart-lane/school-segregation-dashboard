@@ -36,9 +36,9 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
         const choro_info_dict = {}
         data_choro.forEach(element => {
           const key = `${element["link"]}_${element["year"]}_${element["group"]}_${element["school"]}`
+          
           choro_info_dict[key] = {
-            'colour': element['colour'],
-            'value': element['value']
+            'colour': element['colour']
           }
         })
 
@@ -126,9 +126,11 @@ export default function Choropleth({ local_authority, changeLocalAuthority }) {
       // const choro_info_subset = choro_info[key];
 
       let fill_colour = "grey"
-      // if (choro_info_subset.length === 1) {
-      //   fill_colour = choro_info_subset[0]["colour"]
-      // }
+      if (choro_info[key]) {
+        if (choro_info[key]["colour"]) {
+        fill_colour = choro_info[key]["colour"]
+        }
+      }
 
 
       return {
