@@ -41,11 +41,8 @@ export default function MainPage() {
           local_authority={local_authority}
           changeLocalAuthority={changeLocalAuthority}
           school_selection={school_selection}
-          setSchoolSelection={setSchoolSelection}
           group_selection={group_selection}
-          setGroupSelection={setGroupSelection}
           year_selection={year_selection}
-          setYearSelection={setYearSelection}
         />
       </div>
     </div>
