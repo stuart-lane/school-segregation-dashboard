@@ -105,7 +105,7 @@ for (year_code in year_codes) {
       
       # Create figure names
       # file_name <- paste(seg_category, school_category, "long_matched.dta", sep = "_")
-      file_name <- paste(seg_category, school_category, "long.dta", sep = "_")
+      file_name <- paste(seg_category, school_category, "long_matched_la.dta", sep = "_")
       
       file_path <- paste("1_posted", file_name, sep = "/")
       fig_label <- paste0(school_category, "_", seg_category, "_", year_code)
@@ -131,7 +131,7 @@ for (year_code in year_codes) {
       for (district_name in district_names) {
         
         # Filter data for current district
-        data_table_district <- data_table[District == district_name]
+        data_table_district <- data_table[LAD24NM == district_name]
         
         # Filter data for current year
         # data_table_district <- data_table_district[year == year_code]

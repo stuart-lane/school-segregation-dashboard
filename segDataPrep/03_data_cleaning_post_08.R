@@ -328,7 +328,7 @@ file_path <- file.path(paste0(tmp_dir, combined_file_name))
 
 data <- read_csv(file_path)
 
-colSums(is.na(data))
+colSums(is.na(data)) 
 
 colnames(data)
 
