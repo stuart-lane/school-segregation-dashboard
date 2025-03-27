@@ -46,8 +46,7 @@ race_groups <- list(
   c("Black", "White")
 )
 
-tag <- "_long_matched.dta"
-tag <- "_long.dta"
+tag <- "_long_matched_la.dta"
 
 ### ============================================================================
 ### FSM DISSIMILARITY INDICES

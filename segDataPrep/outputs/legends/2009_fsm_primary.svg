@@ -35,11 +35,11 @@
 <rect x='2.68' y='85.89' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FDE725;' />
 <rect x='1.98' y='102.46' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #EBEBEB;' />
 <rect x='2.68' y='103.17' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #808080;' />
-<text x='24.74' y='27.85' style='font-size: 8.80px; font-family: "Arial";' textLength='24.94px' lengthAdjust='spacingAndGlyphs'>0 - 0.1</text>
-<text x='24.74' y='45.13' style='font-size: 8.80px; font-family: "Arial";' textLength='32.28px' lengthAdjust='spacingAndGlyphs'>0.1 - 0.2</text>
-<text x='24.74' y='62.41' style='font-size: 8.80px; font-family: "Arial";' textLength='37.17px' lengthAdjust='spacingAndGlyphs'>0.2 - 0.31</text>
-<text x='24.74' y='79.69' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.31 - 0.41</text>
-<text x='24.74' y='96.97' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.41 - 0.51</text>
+<text x='24.74' y='27.85' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.15 - 0.22</text>
+<text x='24.74' y='45.13' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.22 - 0.29</text>
+<text x='24.74' y='62.41' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.29 - 0.37</text>
+<text x='24.74' y='79.69' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.37 - 0.44</text>
+<text x='24.74' y='96.97' style='font-size: 8.80px; font-family: "Arial";' textLength='42.07px' lengthAdjust='spacingAndGlyphs'>0.44 - 0.51</text>
 <text x='24.74' y='114.25' style='font-size: 8.80px; font-family: "Arial";' textLength='12.22px' lengthAdjust='spacingAndGlyphs'>NA</text>
 </g>
 </svg>

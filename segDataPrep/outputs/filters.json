@@ -7,10 +7,6 @@
       "link": "adur"
     },
     {
-      "name": "Allerdale",
-      "link": "allerdale"
-    },
-    {
       "name": "Amber Valley",
       "link": "amber_valley"
     },
@@ -27,10 +23,6 @@
       "link": "ashford"
     },
     {
-      "name": "Aylesbury Vale",
-      "link": "aylesbury_vale"
-    },
-    {
       "name": "Babergh",
       "link": "babergh"
     },
@@ -45,10 +37,6 @@
     {
       "name": "Barnsley",
       "link": "barnsley"
-    },
-    {
-      "name": "Barrow-in-Furness",
-      "link": "barrow_in_furness"
     },
     {
       "name": "Basildon",
@@ -103,8 +91,8 @@
       "link": "boston"
     },
     {
-      "name": "Bournemouth",
-      "link": "bournemouth"
+      "name": "Bournemouth, Christchurch and Poole",
+      "link": "bournemouth__christchurch_and_poole"
     },
     {
       "name": "Bracknell Forest",
@@ -179,10 +167,6 @@
       "link": "cambridge"
     },
     {
-      "name": "Cambridgeshire",
-      "link": "cambridgeshire"
-    },
-    {
       "name": "Camden",
       "link": "camden"
     },
@@ -193,10 +177,6 @@
     {
       "name": "Canterbury",
       "link": "canterbury"
-    },
-    {
-      "name": "Carlisle",
-      "link": "carlisle"
     },
     {
       "name": "Castle Point",
@@ -239,28 +219,12 @@
       "link": "chichester"
     },
     {
-      "name": "Chiltern",
-      "link": "chiltern"
-    },
-    {
       "name": "Chorley",
       "link": "chorley"
     },
     {
-      "name": "Christchurch",
-      "link": "christchurch"
-    },
-    {
       "name": "Colchester",
       "link": "colchester"
-    },
-    {
-      "name": "Copeland",
-      "link": "copeland"
-    },
-    {
-      "name": "Corby",
-      "link": "corby"
     },
     {
       "name": "Cornwall",
@@ -279,10 +243,6 @@
       "link": "coventry"
     },
     {
-      "name": "Craven",
-      "link": "craven"
-    },
-    {
       "name": "Crawley",
       "link": "crawley"
     },
@@ -291,8 +251,8 @@
       "link": "croydon"
     },
     {
-      "name": "Cumbria",
-      "link": "cumbria"
+      "name": "Cumberland",
+      "link": "cumberland"
     },
     {
       "name": "Dacorum",
@@ -307,24 +267,12 @@
       "link": "dartford"
     },
     {
-      "name": "Daventry",
-      "link": "daventry"
-    },
-    {
       "name": "Derby",
       "link": "derby"
     },
     {
       "name": "Derbyshire Dales",
       "link": "derbyshire_dales"
-    },
-    {
-      "name": "Derbyshire",
-      "link": "derbyshire"
-    },
-    {
-      "name": "Devon",
-      "link": "devon"
     },
     {
       "name": "Doncaster",
@@ -343,10 +291,6 @@
       "link": "dudley"
     },
     {
-      "name": "Durham",
-      "link": "durham"
-    },
-    {
       "name": "Ealing",
       "link": "ealing"
     },
@@ -357,10 +301,6 @@
     {
       "name": "East Devon",
       "link": "east_devon"
-    },
-    {
-      "name": "East Dorset",
-      "link": "east_dorset"
     },
     {
       "name": "East Hampshire",
@@ -375,10 +315,6 @@
       "link": "east_lindsey"
     },
     {
-      "name": "East Northamptonshire",
-      "link": "east_northamptonshire"
-    },
-    {
       "name": "East Riding of Yorkshire",
       "link": "east_riding_of_yorkshire"
     },
@@ -391,20 +327,12 @@
       "link": "east_suffolk"
     },
     {
-      "name": "East Sussex",
-      "link": "east_sussex"
-    },
-    {
       "name": "Eastbourne",
       "link": "eastbourne"
     },
     {
       "name": "Eastleigh",
       "link": "eastleigh"
-    },
-    {
-      "name": "Eden",
-      "link": "eden"
     },
     {
       "name": "Elmbridge",
@@ -427,10 +355,6 @@
       "link": "erewash"
     },
     {
-      "name": "Essex",
-      "link": "essex"
-    },
-    {
       "name": "Exeter",
       "link": "exeter"
     },
@@ -445,10 +369,6 @@
     {
       "name": "Folkestone and Hythe",
       "link": "folkestone_and_hythe"
-    },
-    {
-      "name": "Forest Heath",
-      "link": "forest_heath"
     },
     {
       "name": "Forest of Dean",
@@ -469,10 +389,6 @@
     {
       "name": "Gloucester",
       "link": "gloucester"
-    },
-    {
-      "name": "Gloucestershire",
-      "link": "gloucestershire"
     },
     {
       "name": "Gosport",
@@ -503,16 +419,8 @@
       "link": "halton"
     },
     {
-      "name": "Hambleton",
-      "link": "hambleton"
-    },
-    {
       "name": "Hammersmith and Fulham",
       "link": "hammersmith_and_fulham"
-    },
-    {
-      "name": "Hampshire",
-      "link": "hampshire"
     },
     {
       "name": "Harborough",
@@ -525,10 +433,6 @@
     {
       "name": "Harlow",
       "link": "harlow"
-    },
-    {
-      "name": "Harrogate",
-      "link": "harrogate"
     },
     {
       "name": "Harrow",
@@ -555,16 +459,8 @@
       "link": "havering"
     },
     {
-      "name": "Herefordshire",
-      "link": "herefordshire"
-    },
-    {
       "name": "Herefordshire, County of",
       "link": "herefordshire__county_of"
-    },
-    {
-      "name": "Hertfordshire",
-      "link": "hertfordshire"
     },
     {
       "name": "Hertsmere",
@@ -615,14 +511,6 @@
       "link": "kensington_and_chelsea"
     },
     {
-      "name": "Kent",
-      "link": "kent"
-    },
-    {
-      "name": "Kettering",
-      "link": "kettering"
-    },
-    {
       "name": "King's Lynn and West Norfolk",
       "link": "king's_lynn_and_west_norfolk"
     },
@@ -647,10 +535,6 @@
       "link": "lambeth"
     },
     {
-      "name": "Lancashire",
-      "link": "lancashire"
-    },
-    {
       "name": "Lancaster",
       "link": "lancaster"
     },
@@ -661,10 +545,6 @@
     {
       "name": "Leicester",
       "link": "leicester"
-    },
-    {
-      "name": "Leicestershire",
-      "link": "leicestershire"
     },
     {
       "name": "Lewes",
@@ -681,10 +561,6 @@
     {
       "name": "Lincoln",
       "link": "lincoln"
-    },
-    {
-      "name": "Lincolnshire",
-      "link": "lincolnshire"
     },
     {
       "name": "Liverpool",
@@ -721,10 +597,6 @@
     {
       "name": "Melton",
       "link": "melton"
-    },
-    {
-      "name": "Mendip",
-      "link": "mendip"
     },
     {
       "name": "Merton",
@@ -775,16 +647,8 @@
       "link": "newham"
     },
     {
-      "name": "Norfolk",
-      "link": "norfolk"
-    },
-    {
       "name": "North Devon",
       "link": "north_devon"
-    },
-    {
-      "name": "North Dorset",
-      "link": "north_dorset"
     },
     {
       "name": "North East Derbyshire",
@@ -811,6 +675,10 @@
       "link": "north_norfolk"
     },
     {
+      "name": "North Northamptonshire",
+      "link": "north_northamptonshire"
+    },
+    {
       "name": "North Somerset",
       "link": "north_somerset"
     },
@@ -831,14 +699,6 @@
       "link": "north_yorkshire"
     },
     {
-      "name": "Northampton",
-      "link": "northampton"
-    },
-    {
-      "name": "Northamptonshire",
-      "link": "northamptonshire"
-    },
-    {
       "name": "Northumberland",
       "link": "northumberland"
     },
@@ -849,10 +709,6 @@
     {
       "name": "Nottingham",
       "link": "nottingham"
-    },
-    {
-      "name": "Nottinghamshire",
-      "link": "nottinghamshire"
     },
     {
       "name": "Nuneaton and Bedworth",
@@ -871,10 +727,6 @@
       "link": "oxford"
     },
     {
-      "name": "Oxfordshire",
-      "link": "oxfordshire"
-    },
-    {
       "name": "Pendle",
       "link": "pendle"
     },
@@ -887,20 +739,12 @@
       "link": "plymouth"
     },
     {
-      "name": "Poole",
-      "link": "poole"
-    },
-    {
       "name": "Portsmouth",
       "link": "portsmouth"
     },
     {
       "name": "Preston",
       "link": "preston"
-    },
-    {
-      "name": "Purbeck",
-      "link": "purbeck"
     },
     {
       "name": "Reading",
@@ -929,10 +773,6 @@
     {
       "name": "Richmond Upon Thames",
       "link": "richmond_upon_thames"
-    },
-    {
-      "name": "Richmondshire",
-      "link": "richmondshire"
     },
     {
       "name": "Rochdale",
@@ -975,10 +815,6 @@
       "link": "rutland"
     },
     {
-      "name": "Ryedale",
-      "link": "ryedale"
-    },
-    {
       "name": "Salford",
       "link": "salford"
     },
@@ -987,20 +823,8 @@
       "link": "sandwell"
     },
     {
-      "name": "Scarborough",
-      "link": "scarborough"
-    },
-    {
-      "name": "Sedgemoor",
-      "link": "sedgemoor"
-    },
-    {
       "name": "Sefton",
       "link": "sefton"
-    },
-    {
-      "name": "Selby",
-      "link": "selby"
     },
     {
       "name": "Sevenoaks",
@@ -1009,10 +833,6 @@
     {
       "name": "Sheffield",
       "link": "sheffield"
-    },
-    {
-      "name": "Shepway",
-      "link": "shepway"
     },
     {
       "name": "Shropshire",
@@ -1029,14 +849,6 @@
     {
       "name": "Somerset",
       "link": "somerset"
-    },
-    {
-      "name": "Somerset West and Taunton",
-      "link": "somerset_west_and_taunton"
-    },
-    {
-      "name": "South Bucks",
-      "link": "south_bucks"
     },
     {
       "name": "South Cambridgeshire",
@@ -1063,16 +875,8 @@
       "link": "south_kesteven"
     },
     {
-      "name": "South Lakeland",
-      "link": "south_lakeland"
-    },
-    {
       "name": "South Norfolk",
       "link": "south_norfolk"
-    },
-    {
-      "name": "South Northamptonshire",
-      "link": "south_northamptonshire"
     },
     {
       "name": "South Oxfordshire",
@@ -1081,10 +885,6 @@
     {
       "name": "South Ribble",
       "link": "south_ribble"
-    },
-    {
-      "name": "South Somerset",
-      "link": "south_somerset"
     },
     {
       "name": "South Staffordshire",
@@ -1115,10 +915,6 @@
       "link": "st_albans"
     },
     {
-      "name": "St Edmundsbury",
-      "link": "st_edmundsbury"
-    },
-    {
       "name": "St. Helens",
       "link": "st._helens"
     },
@@ -1129,10 +925,6 @@
     {
       "name": "Staffordshire Moorlands",
       "link": "staffordshire_moorlands"
-    },
-    {
-      "name": "Staffordshire",
-      "link": "staffordshire"
     },
     {
       "name": "Stevenage",
@@ -1159,24 +951,12 @@
       "link": "stroud"
     },
     {
-      "name": "Suffolk Coastal",
-      "link": "suffolk_coastal"
-    },
-    {
-      "name": "Suffolk",
-      "link": "suffolk"
-    },
-    {
       "name": "Sunderland",
       "link": "sunderland"
     },
     {
       "name": "Surrey Heath",
       "link": "surrey_heath"
-    },
-    {
-      "name": "Surrey",
-      "link": "surrey"
     },
     {
       "name": "Sutton",
@@ -1201,10 +981,6 @@
     {
       "name": "Tandridge",
       "link": "tandridge"
-    },
-    {
-      "name": "Taunton Deane",
-      "link": "taunton_deane"
     },
     {
       "name": "Teignbridge",
@@ -1295,16 +1071,8 @@
       "link": "warwick"
     },
     {
-      "name": "Warwickshire",
-      "link": "warwickshire"
-    },
-    {
       "name": "Watford",
       "link": "watford"
-    },
-    {
-      "name": "Waveney",
-      "link": "waveney"
     },
     {
       "name": "Waverley",
@@ -1313,10 +1081,6 @@
     {
       "name": "Wealden",
       "link": "wealden"
-    },
-    {
-      "name": "Wellingborough",
-      "link": "wellingborough"
     },
     {
       "name": "Welwyn Hatfield",
@@ -1331,10 +1095,6 @@
       "link": "west_devon"
     },
     {
-      "name": "West Dorset",
-      "link": "west_dorset"
-    },
-    {
       "name": "West Lancashire",
       "link": "west_lancashire"
     },
@@ -1343,28 +1103,24 @@
       "link": "west_lindsey"
     },
     {
-      "name": "West Oxfordshire",
-      "link": "west_oxfordshire"
+      "name": "West Northamptonshire",
+      "link": "west_northamptonshire"
     },
     {
-      "name": "West Somerset",
-      "link": "west_somerset"
+      "name": "West Oxfordshire",
+      "link": "west_oxfordshire"
     },
     {
       "name": "West Suffolk",
       "link": "west_suffolk"
     },
     {
-      "name": "West Sussex",
-      "link": "west_sussex"
-    },
-    {
       "name": "Westminster",
       "link": "westminster"
     },
     {
-      "name": "Weymouth and Portland",
-      "link": "weymouth_and_portland"
+      "name": "Westmorland and Furness",
+      "link": "westmorland_and_furness"
     },
     {
       "name": "Wigan",
@@ -1403,20 +1159,12 @@
       "link": "worcester"
     },
     {
-      "name": "Worcestershire",
-      "link": "worcestershire"
-    },
-    {
       "name": "Worthing",
       "link": "worthing"
     },
     {
       "name": "Wychavon",
       "link": "wychavon"
-    },
-    {
-      "name": "Wycombe",
-      "link": "wycombe"
     },
     {
       "name": "Wyre Forest",
@@ -1431,24 +1179,8 @@
       "link": "york"
     },
     {
-      "name": "Bournemouth, Christchurch and Poole",
-      "link": "bournemouth__christchurch_and_poole"
-    },
-    {
-      "name": "North Northamptonshire",
-      "link": "north_northamptonshire"
-    },
-    {
-      "name": "West Northamptonshire",
-      "link": "west_northamptonshire"
-    },
-    {
-      "name": "Cumberland",
-      "link": "cumberland"
-    },
-    {
-      "name": "Westmorland and Furness",
-      "link": "westmorland_and_furness"
+      "name": "Isles of Scilly",
+      "link": "isles_of_scilly"
     }
   ]
 }

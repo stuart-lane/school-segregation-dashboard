@@ -101,8 +101,8 @@ get_plot_information <- function(figure_directory){
 
 link_seg_indices <- function(spatial_data, seg_indice_directory, plot_information, legends_output_directory){
 
-  # seg_indice_directory <- './3_segregation_indices/'
-  # indice_data <- readr::read_csv(paste0(seg_indice_directory, 'full_file_cols_segregation.csv'))
+   seg_indice_directory <- './3_segregation_indices/'
+   indice_data <- readr::read_csv(paste0(seg_indice_directory, 'full_file_cols_segregation.csv'))
   # 
   indice_data$link <- tolower(indice_data$district)
   indice_data$link <- gsub(' ','_', indice_data$link)
@@ -355,8 +355,8 @@ prepare_shapefile <- function(shape_file_directory,
 }
 
 
-shape_file_directory <- './Local_Authority_Districts_May_2024_Boundaries_UK_BUC_-7430853278415417895//'
-figure_directory <- './2_figures/'
+shape_file_directory <- './Local_Authority_Districts_May_2024_Boundaries_UK_BUC_-7430853278415417895/'
+figure_directory <- './2_figures_new/'
 seg_indice_directory <- './3_segregation_indices/'
 output_directory <- 'outputs/'
 
