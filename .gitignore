@@ -1,5 +1,7 @@
 
 # Don't upload data files
+
+
 *.xlsx
 *.xls
 *.csv
@@ -8,10 +10,10 @@
 *LAD_DEC_2023*
 *LAD_MAY_2023*
 
-
+*.pdf
+!example_segplots.pdf
 *.csv
 *.dta
-*.pdf
 *.xlsx
 *.xls
 *.DOC
@@ -29,6 +31,7 @@
 
 segDataPrep/misc/
 
+.Rhistory
 
 renv/
 .Rproj.user
