@@ -86,7 +86,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
 
   const url = `https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=${map_box_token}`;
   const attribution =
-    '<a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a><strong><a href="https://labs.mapbox.com/contribute/" target="_blank"><br/>Improve this map</a></strong>';
+    '<a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a><strong><a href="https://labs.mapbox.com/contribute/" target="_blank"><br/>Improve this map</a></strong><br/>Source (Boundaries): Office for National Statistics licensed under the Open Government Licence v.3.0<br/>Contains OS data © Crown copyright and database right [2024]';
 
   const position = [53, -6];
 
