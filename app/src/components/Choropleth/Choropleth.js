@@ -5,6 +5,9 @@ import { GeoJSON, MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 
 import "./Choropleth.css";
 
+
+import { SPATIAL_DATA_URL, CHORO_DATA_URL, MAPBOX_TOKEN } from "../../config";
+
 // import localAuthorities from "../../../../data/hh_size_data.json";
 // import areas from "../../data/spatial_data.json";
 
@@ -39,11 +42,11 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/spatial_data.geojson')
+        const response = await fetch(SPATIAL_DATA_URL)
         const data = await response.json()
         setAreaData(data)
 
-        const response_choro = await fetch('https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/seg_indices.json')
+        const response_choro = await fetch(CHORO_DATA_URL)
         const data_choro = await response_choro.json()
         const choro_info_dict = {}
         data_choro.forEach(element => {
@@ -81,8 +84,7 @@ export default function Choropleth({ local_authority, changeLocalAuthority,schoo
     // console.log(isSelect);
   }, [isSelect, changeLocalAuthority]);
 
-  const map_box_token =
-    "pk.eyJ1IjoibC1nb3JtYW4iLCJhIjoiY20wbW0yYnU5MDRqbjJrcXNyNWcycWQ5ayJ9.mqWPPtqV8lvGzHefYst7XA";
+  const map_box_token = MAPBOX_TOKEN;
 
   const url = `https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=${map_box_token}`;
   const attribution =

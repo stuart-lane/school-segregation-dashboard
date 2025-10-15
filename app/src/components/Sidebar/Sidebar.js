@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 
 import "./Sidebar.css";
 
+import { BASE_URL, PLOT_INFO, FILTERS } from "../../config";
+
 // import localAuthorities from "../../../../data/hh_size_data.json";
 
 // import filters from "../../data/filters.json";
@@ -53,9 +55,8 @@ function constructUrl({ plot_info, local_authority,
 
   // return(undefined)
   if (plot_info_to_use) {
-    const base_url =
-      "https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep";
-    const complete_url = base_url + plot_info_to_use["plot_path"];
+    
+    const complete_url = BASE_URL + plot_info_to_use["plot_path"];
 
     return complete_url;
   } else {
@@ -115,10 +116,10 @@ export default function Sidebar({
     const fetchData = async () => {
       try {
         const response_plot_info = await fetch(
-          "https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/plot_information.json"
+            PLOT_INFO
         );
         const response_filter = await fetch(
-          "https://raw.githubusercontent.com/JGIBristol/school-segregation-dashboard/refs/heads/main/segDataPrep/outputs/filters.json"
+          FILTERS
         );
 
         const plot_info_data = await response_plot_info.json();
