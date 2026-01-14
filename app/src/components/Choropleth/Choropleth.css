@@ -14,3 +14,13 @@
 .leaflet-control{
     font-size: 10px;
 }
+
+/* Remove the focus outline box from selected polygons */
+.leaflet-interactive:focus {
+  outline: none;
+}
+
+/* Or alternatively, if the above doesn't work */
+.leaflet-container svg path:focus {
+  outline: none;
+}

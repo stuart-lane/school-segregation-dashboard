@@ -14,8 +14,8 @@ export default function MainPage() {
 
   const [school_selection, setSchoolSelection] = useState("primary");
   const [group_selection, setGroupSelection] = useState("fsm");
-  const [year_selection, setYearSelection] = useState(2015);
-
+  const [year_selection, setYearSelection] = useState(2023);
+  const [choro_info, setChoroInfo] = useState(null);
   // Use callback to prevent infinite loop
   const changeLocalAuthority = useCallback((value) => {
     setLocalAuthority(value);
@@ -23,7 +23,6 @@ export default function MainPage() {
 
   return (
     <div className="main-container">
-      {/* {local_authority} */}
       <div className="custom-sidebar">
         <Sidebar
           local_authority={local_authority}
@@ -33,6 +32,7 @@ export default function MainPage() {
           setGroupSelection={setGroupSelection}
           year_selection={year_selection}
           setYearSelection={setYearSelection}
+          choro_info={choro_info}
         />
       </div>
 
@@ -43,6 +43,7 @@ export default function MainPage() {
           school_selection={school_selection}
           group_selection={group_selection}
           year_selection={year_selection}
+          setChoroInfo={setChoroInfo}
         />
       </div>
     </div>
