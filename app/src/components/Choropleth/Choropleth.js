@@ -9,7 +9,8 @@ import {
   SPATIAL_DATA_URL, 
   CHORO_DATA_URL, 
   MAP_TILES_URL,
-  ATTRIBUTION
+  ATTRIBUTION,
+  MAP_POSITION
 } from "../../config";
 import {
   getColorFromValue,
@@ -41,6 +42,7 @@ export default function Choropleth({
   const [loading, setLoading] = useState(true)
   const [valueCache, setValueCache] = useState(null)
   const [choro_info, setChoroInfoLocal] = useState(null);
+  const [legendData, setLegendData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,7 +99,7 @@ export default function Choropleth({
 
   const url = MAP_TILES_URL;
   const attribution = ATTRIBUTION;
-  const position = [53, -6];
+  const position = MAP_POSITION;
 
   useEffect(() => {
     if (choro_info) {
@@ -110,6 +112,39 @@ export default function Choropleth({
         .filter(v => v !== null && v !== undefined);
       
       setValueCache(values);
+      
+      // Create legend data
+      if (values.length > 0) {
+        const sortedValues = [...values].sort((a, b) => a - b);
+        const n = sortedValues.length;
+      
+        const colors = [
+          "#fde724", "#b5de2b", "#6ece58", "#35b779",
+          "#1f9e89", "#26828e", "#31688e", "#3e4989", 
+          "#482878", "#440154" 
+        ];
+        
+        // Calculate the actual threshold values for each bin
+        const quantiles = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+        const thresholds = quantiles.map(q => {
+          const idx = Math.min(Math.floor(q * n), n - 1);
+          return sortedValues[idx];
+        });
+        
+        const legendItems = [];
+        // Build legend from highest to lowest (reverse order)
+        for (let i = colors.length - 1; i >= 0; i--) {
+          const minVal = thresholds[i];
+          const maxVal = thresholds[i + 1];
+          
+          legendItems.push({
+            color: colors[i],
+            label: `${minVal.toFixed(3)} - ${maxVal.toFixed(3)}`
+          });
+        }
+        
+        setLegendData(legendItems);
+      }
       
       console.log('Value distribution:', {
         min: Math.min(...values),
@@ -311,15 +346,32 @@ export default function Choropleth({
     }
   if (areas) {
     return(
-      <MapContainer center={position} zoom={7}>
-        <TileLayer url={url} attribution={attribution} />
-          <GeoJSON
-            data={areas}
-            style={styleClosure(isSelect, isHighlight, school_selection, group_selection, year_selection)}
-            onEachFeature={onEachFeatureClosure(setIsSelect, setIsHighlight, school_selection, group_selection, year_selection, choro_info)}
-          />
-        <ZoomControl position="topright" />
-      </MapContainer>
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <MapContainer center={position} zoom={7}>
+          <TileLayer url={url} attribution={attribution} />
+            <GeoJSON
+              data={areas}
+              style={styleClosure(isSelect, isHighlight, school_selection, group_selection, year_selection)}
+              onEachFeature={onEachFeatureClosure(setIsSelect, setIsHighlight, school_selection, group_selection, year_selection, choro_info)}
+            />
+          <ZoomControl position="topright" />
+        </MapContainer>
+        
+        {legendData && (
+          <div className="map-legend">
+            <h4>Segregation Index</h4>
+            {legendData.map((item, index) => (
+              <div key={index} className="legend-item">
+                <span 
+                  className="legend-color" 
+                  style={{ backgroundColor: item.color }}
+                />
+                <span className="legend-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     );
   }
 }
