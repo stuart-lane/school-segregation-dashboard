@@ -1,62 +1,15 @@
-
 .leaflet-left{
   display: none;
 }
-
-/* .leaflet-control-attribution{
-    z-index: -1;
-    margin-top: 20px;
-    position:relative;
-    color: black;
-    background-color: black;
-} */
 
 .leaflet-control{
   font-size: 10px;
 }
 
-/* Remove the focus outline box from selected polygons */
 .leaflet-interactive:focus {
   outline: none;
 }
 
-/* Or alternatively, if the above doesn't work */
 .leaflet-container svg path:focus {
   outline: none;
-}
-
-.map-legend {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: white;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  font-size: 12px;
-}
-
-.map-legend h4 {
-  margin: 0 0 10px 0;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.legend-color {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  border: 1px solid #ccc;
-  flex-shrink: 0;
-}
-
-.legend-label {
-  font-size: 11px;
 }

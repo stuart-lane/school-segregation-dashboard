@@ -1,18 +1,8 @@
-import { 
-  useEffect, 
-  useState 
-} from "react";
-import { 
-  PLOT_INFO, 
-  FILTERS 
-} from "../../config";
-import { 
-  school_values, 
-  grouping_values, 
-  GetImage, 
-  constructUrl
-} from "../utils/SidebarUtils";
+import { useEffect, useState } from "react";
+import { PLOT_INFO, FILTERS } from "../../config";
+import { school_values, grouping_values, GetImage, constructUrl } from "../utils/SidebarUtils";
 import Form from "react-bootstrap/Form";
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import "./Sidebar.css";
 
@@ -85,6 +75,8 @@ export default function Sidebar({
 
   const segData = getSegregationData();
 
+  console.log("Plot URL:", plotUrl);
+
   if (loading) {
     return (
       <div className="sidebar-content">
@@ -94,78 +86,89 @@ export default function Sidebar({
     );
   }
 
+  // Get min and max years for slider
+  const years = filters["year"] || [];
+  const minYear = years.length > 0 ? Math.min(...years.map(y => parseInt(y))) : 2020;
+  const maxYear = years.length > 0 ? Math.max(...years.map(y => parseInt(y))) : 2024;
+
   if (!loading) {
     return (
       <div className="sidebar-content">
         <h1 className="sidebar-header">Spatial Analysis Dashboard Mockup</h1>
 
         <Form className="selector-form">
-          <Form.Group className="form-group-custom" controlId="formPlotSelect">
+          <Form.Group className="form-group-custom">
             <Form.Label className="form-text">
-              Select a what school you want to plot for:
+              School type:
             </Form.Label>
-
-            <Form.Select
-              size="sm"
-              onChange={(e) => {
-                setSchoolSelection(e.target.value);
-              }}
+            <ToggleButtonGroup 
+              type="radio" 
+              name="school" 
+              value={school_selection}
+              onChange={setSchoolSelection}
+              className="custom-toggle-group"
             >
-              {school_values.map((group) => {
-                return (
-                  <option key={group.value} value={group.value}>
-                    {group.name}
-                  </option>
-                );
-              })}
-            </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="form-group-custom" controlId="formPlotSelect">
-            <Form.Label className="form-text">
-              Select a what grouping you want to plot for:
-            </Form.Label>
-
-            <Form.Select
-              size="sm"
-              onChange={(e) => {
-                setGroupSelection(e.target.value);
-              }}
-            >
-              {grouping_values.map((group) => {
-                return (
-                  <option key={group.value} value={group.value}>
-                    {group.name}
-                  </option>
-                );
-              })}
-            </Form.Select>
+              {school_values.map((group) => (
+                <ToggleButton 
+                  key={group.value} 
+                  id={`tbg-school-${group.value}`} 
+                  value={group.value}
+                  variant="outline-primary"
+                  className="custom-toggle-button"
+                >
+                  {group.name}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
           </Form.Group>
-          <Form.Group className="form-group-custom" controlId="formYearSelect">
+
+          <Form.Group className="form-group-custom">
             <Form.Label className="form-text">
-              Select a year to plot for:
+              Grouping type:
             </Form.Label>
-            <Form.Select
-              size="sm"
-              value={year_selection}
-              onChange={(e) => {
-                setYearSelection(e.target.value);
-              }}
+            <ToggleButtonGroup 
+              type="radio" 
+              name="grouping" 
+              value={group_selection}
+              onChange={setGroupSelection}
+              className="custom-toggle-group"
             >
-              {filters["year"].map((year) => {
-                return (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                );
-              })}
-            </Form.Select>
+              {grouping_values.map((group) => (
+                <ToggleButton 
+                  key={group.value} 
+                  id={`tbg-group-${group.value}`} 
+                  value={group.value}
+                  variant="outline-primary"
+                  className="custom-toggle-button"
+                >
+                  {group.name}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Form.Group>
+
+          <Form.Group className="form-group-custom">
+            <Form.Label className="form-text">
+              Year: <strong>{year_selection}</strong>
+            </Form.Label>
+            <Form.Range
+              min={minYear}
+              max={maxYear}
+              value={parseInt(year_selection)}
+              onChange={(e) => setYearSelection(e.target.value)}
+              className="custom-slider"
+            />
+            <div className="slider-labels">
+              <span>{minYear}</span>
+              <span>{maxYear}</span>
+            </div>
           </Form.Group>
         </Form>
-        <p>
-          <br></br>
+        
+        <div>
+          <br />
           {local_authority["name"] === "Select local authority by clicking on the map" ? (
-            local_authority["name"]
+            <p>{local_authority["name"]}</p>
           ) : (
             <>
               <p className="selected-area-info">
@@ -179,7 +182,7 @@ export default function Sidebar({
               )}
             </>
           )}
-        </p>
+        </div>
 
         <GetImage url={plotUrl} local_authority={local_authority}></GetImage>
       </div>
