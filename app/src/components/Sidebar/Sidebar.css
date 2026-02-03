@@ -48,7 +48,7 @@
 .custom-toggle-button {
 	border: none !important;
 	background-color: transparent !important;
-	color: #333 !important;
+	color: #666 !important;
 	font-size: 13px;
 	font-weight: 500;
 	padding: 6px 14px !important;
@@ -64,9 +64,10 @@
 
 .custom-toggle-button:active,
 .custom-toggle-button.active {
-	background-color: white !important;
-	color: #0d6efd !important;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	background-color: #4a4a4a !important;
+	color: white !important;
+	font-weight: 600 !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .custom-toggle-button:focus {
@@ -74,12 +75,53 @@
 	box-shadow: none;
 }
 
-/* Slider styling */
-.custom-slider {
-	width: 100%;
-	height: 6px;
+/* Slider container with arrows */
+.slider-container {
+	display: flex;
+	align-items: center;
+	gap: 8px;
 	margin-top: 12px;
 	margin-bottom: 8px;
+}
+
+.slider-arrow-button {
+	padding: 0 !important;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f0f0f0 !important;
+	border-radius: 6px;
+	font-size: 24px;
+	color: #666 !important;
+	text-decoration: none !important;
+	transition: all 0.15s ease;
+	flex-shrink: 0;
+}
+
+.slider-arrow-button:hover:not(:disabled) {
+	background-color: #e0e0e0 !important;
+	color: #333 !important;
+}
+
+.slider-arrow-button:active:not(:disabled) {
+	background-color: #d0d0d0 !important;
+}
+
+.slider-arrow-button:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+.slider-arrow-button:focus {
+	box-shadow: none !important;
+}
+
+/* Slider styling */
+.custom-slider {
+	flex: 1;
+	height: 6px;
 	background: #e0e0e0;
 	border-radius: 3px;
 }
@@ -131,4 +173,6 @@
 	color: #888;
 	margin-top: 2px;
 	font-weight: 500;
+	padding-left: 36px;
+	padding-right: 36px;
 }

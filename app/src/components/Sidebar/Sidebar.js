@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PLOT_INFO, FILTERS } from "../../config";
 import { school_values, grouping_values, GetImage, constructUrl } from "../utils/SidebarUtils";
 import Form from "react-bootstrap/Form";
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 
 import "./Sidebar.css";
 
@@ -90,6 +90,19 @@ export default function Sidebar({
   const years = filters["year"] || [];
   const minYear = years.length > 0 ? Math.min(...years.map(y => parseInt(y))) : 2020;
   const maxYear = years.length > 0 ? Math.max(...years.map(y => parseInt(y))) : 2024;
+  const currentYear = parseInt(year_selection);
+
+  const handleYearDecrement = () => {
+    if (currentYear > minYear) {
+      setYearSelection((currentYear - 1).toString());
+    }
+  };
+
+  const handleYearIncrement = () => {
+    if (currentYear < maxYear) {
+      setYearSelection((currentYear + 1).toString());
+    }
+  };
 
   if (!loading) {
     return (
@@ -151,13 +164,31 @@ export default function Sidebar({
             <Form.Label className="form-text">
               Year: <strong>{year_selection}</strong>
             </Form.Label>
-            <Form.Range
-              min={minYear}
-              max={maxYear}
-              value={parseInt(year_selection)}
-              onChange={(e) => setYearSelection(e.target.value)}
-              className="custom-slider"
-            />
+            <div className="slider-container">
+              <Button 
+                variant="link" 
+                className="slider-arrow-button"
+                onClick={handleYearDecrement}
+                disabled={currentYear <= minYear}
+              >
+                ‹
+              </Button>
+              <Form.Range
+                min={minYear}
+                max={maxYear}
+                value={currentYear}
+                onChange={(e) => setYearSelection(e.target.value)}
+                className="custom-slider"
+              />
+              <Button 
+                variant="link" 
+                className="slider-arrow-button"
+                onClick={handleYearIncrement}
+                disabled={currentYear >= maxYear}
+              >
+                ›
+              </Button>
+            </div>
             <div className="slider-labels">
               <span>{minYear}</span>
               <span>{maxYear}</span>
