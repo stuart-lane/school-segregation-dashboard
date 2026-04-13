@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/school-segregation-dashboard/static/css/main.cfb2507c.css",
-    "main.js": "/school-segregation-dashboard/static/js/main.9a55062d.js",
+    "main.css": "/school-segregation-dashboard/static/css/main.16f4de8e.css",
+    "main.js": "/school-segregation-dashboard/static/js/main.fa9b518c.js",
     "static/js/453.e3094fe4.chunk.js": "/school-segregation-dashboard/static/js/453.e3094fe4.chunk.js",
     "index.html": "/school-segregation-dashboard/index.html",
-    "main.cfb2507c.css.map": "/school-segregation-dashboard/static/css/main.cfb2507c.css.map",
-    "main.9a55062d.js.map": "/school-segregation-dashboard/static/js/main.9a55062d.js.map",
+    "main.16f4de8e.css.map": "/school-segregation-dashboard/static/css/main.16f4de8e.css.map",
+    "main.fa9b518c.js.map": "/school-segregation-dashboard/static/js/main.fa9b518c.js.map",
     "453.e3094fe4.chunk.js.map": "/school-segregation-dashboard/static/js/453.e3094fe4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cfb2507c.css",
-    "static/js/main.9a55062d.js"
+    "static/css/main.16f4de8e.css",
+    "static/js/main.fa9b518c.js"
   ]
 }
