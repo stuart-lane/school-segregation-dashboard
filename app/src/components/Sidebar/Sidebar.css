@@ -7,13 +7,28 @@
 	font-size: 25px;
 }
 
-.sidebar-content{
-	margin-top: 1em;
-	margin-left: 1em;
+.sidebar-content {
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-bottom: 2em;
 }
 
-.plot-image{
+.plot-image {
 	width: 95%;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	margin-bottom: 1em;
+}
+
+/* Specific styling for PDF embeds */
+embed.plot-image {
+	border: none;
+	min-height: 600px;
+	height: 70vh; /* Make it responsive to viewport height */
+	display: block;
+	margin: 0 auto;
 }
 
 .selector-form{

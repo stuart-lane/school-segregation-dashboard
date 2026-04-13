@@ -13,4 +13,4 @@ export const MAP_TILES_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 export const MAP_POSITION = [53, -6] // Default coordinates
 
-export const BASE_URL = "https://raw.githubusercontent.com/stuart-lane/school-segregation-dashboard/refs/heads/main/segDataPrep";
+export const BASE_URL = "";
